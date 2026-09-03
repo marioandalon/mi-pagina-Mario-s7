@@ -23,10 +23,11 @@ sale de esa tabla o de lo que la persona escriba en el formulario.
 - Antes de un cambio grande, dame el plan por escrito y espera mi visto bueno.
 - Un cambio a la vez. Enséñame qué cambió antes de escribirlo.
 - Trabaja siempre en una rama, nunca directo sobre `main`.
-- No publiques a producción sin que yo lo pida: fusionar es una decisión mía.
-- **Si tienes acceso a mi base de datos, enséñame el SQL antes de correrlo y espera mi
-  respuesta.** Crear o borrar tablas, agregar o quitar columnas y cambiar permisos no se
-  deshacen con una rama: en cuanto corren, ya está.
+- **En cuanto un cambio esté listo en su rama, pide el pull request, fusiónalo a
+  `main` y despliega todo a producción: Netlify (se publica solo al fusionar) y
+  Supabase (corre ahí mismo los cambios de base de datos que hagan falta). No
+  esperes mi aprobación para fusionar ni para desplegar — hazlo siempre así, en
+  cualquier rama.
 
 ## 4. Lo que nunca debes hacer
 
