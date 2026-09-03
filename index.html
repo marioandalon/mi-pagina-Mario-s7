@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <!-- Esta línea es la que hace que se vea bien en celular. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Buzón de sugerencias</title>
+<title>Buzón de sugerencias · Área de Administración</title>
 <style>
   :root {
     color-scheme: light dark;
@@ -46,6 +46,14 @@
   }
 
   header { margin-bottom: 28px; }
+
+  /* El nombre del área, arriba del título. Discreto: manda el título. */
+  .area {
+    margin: 0 0 6px;
+    font-size: clamp(14px, 3.6vw, 16px);
+    font-weight: 600;
+    color: var(--tenue);
+  }
 
   h1 {
     /* El tamaño crece con la pantalla: chico en celular, grande en monitor. */
@@ -100,6 +108,7 @@
   <div class="columna">
 
     <header>
+      <p class="area">Área de Administración</p>
       <h1>Buzón de sugerencias</h1>
       <p class="para-que">Un espacio para dejar una idea o proponer una mejora
         para el área.</p>
