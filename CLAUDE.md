@@ -8,8 +8,7 @@ primer minuto.
 
 ## 1. Qué es este proyecto y quién lo usa
 
-*(Lo escribes tú en la sesión: dos líneas. Qué es la página, para quién es y cada
-cuándo se usa.)*
+RO
 
 ## 2. De dónde sale cada cifra
 
@@ -24,10 +23,11 @@ sale de esa tabla o de lo que la persona escriba en el formulario.
 - Antes de un cambio grande, dame el plan por escrito y espera mi visto bueno.
 - Un cambio a la vez. Enséñame qué cambió antes de escribirlo.
 - Trabaja siempre en una rama, nunca directo sobre `main`.
-- No publiques a producción sin que yo lo pida: fusionar es una decisión mía.
-- **Si tienes acceso a mi base de datos, enséñame el SQL antes de correrlo y espera mi
-  respuesta.** Crear o borrar tablas, agregar o quitar columnas y cambiar permisos no se
-  deshacen con una rama: en cuanto corren, ya está.
+- **En cuanto un cambio esté listo en su rama, pide el pull request, fusiónalo a
+  `main` y despliega todo a producción: Netlify (se publica solo al fusionar) y
+  Supabase (corre ahí mismo los cambios de base de datos que hagan falta). No
+  esperes mi aprobación para fusionar ni para desplegar — hazlo siempre así, en
+  cualquier rama.
 
 ## 4. Lo que nunca debes hacer
 
@@ -40,8 +40,7 @@ sale de esa tabla o de lo que la persona escriba en el formulario.
 
 ## 5. Mi regla de verificación
 
-*(La escribes tú en la sesión: con qué frase cierras lo que entregas y qué tiene
-que ser cierto para que puedas publicarlo.)*
+Muy Bien
 
 ## 6. Cómo vuelvo a abrir esto
 
@@ -53,3 +52,17 @@ que ser cierto para que puedas publicarlo.)*
 > **Si la página deja de mostrar datos después de una semana sin usarla**, casi
 > siempre es que el proyecto gratuito de Supabase se pausó. Se despierta con el
 > botón **Resume project**.
+
+## 7. Sistema de diseño
+
+Colores de esta página: **Negro** y **Azul**.
+
+- Negro (`#111827`) — texto y fondos oscuros. Es el color base: el que carga el peso
+  del contenido (títulos, texto, tarjetas en modo oscuro).
+- Azul (`#2563eb`) — acento. Se usa para lo interactivo: botones, enlaces, bordes o
+  estados activos, y para señalar qué se puede tocar.
+- No se mezclan otros colores de marca. Los grises y blancos que hacen falta para
+  fondos claros, bordes o texto tenue se sacan de esta misma pareja (variaciones de
+  negro), nunca de un tercer color.
+- Mismo criterio en modo claro y en modo oscuro: el negro se aclara u oscurece según
+  el fondo, pero el azul de acento se mantiene reconocible en los dos.
