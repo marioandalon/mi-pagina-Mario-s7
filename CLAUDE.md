@@ -12,11 +12,19 @@ RO
 
 ## 2. De dónde sale cada cifra
 
-Los datos de esta página viven en una tabla de Supabase llamada `registros`.
-Ninguna cifra ni ningún texto que se muestre se escribe a mano en el HTML: todo
-sale de esa tabla o de lo que la persona escriba en el formulario.
+Los datos de esta página viven en Supabase, en el proyecto `curso-ejemplo02Sept`,
+en dos tablas:
 
-*(En la sesión le agregas las columnas que acabes usando.)*
+- `registros` — cada fila es una propuesta de lugar para la cena. Columnas:
+  `id`, `creado_en`, `nombre` (quién la recomienda), `mensaje` (la
+  justificación), `lugar` (el sitio propuesto).
+- `votos` — cada fila es un voto a una propuesta. Columnas: `id`,
+  `registro_id` (a qué propuesta), `votante` (un id al azar que guarda el
+  navegador de quien vota, no un nombre), `creado_en`. Una persona no puede
+  votar dos veces la misma propuesta (`unique (registro_id, votante)`).
+
+Ninguna cifra ni ningún texto que se muestre se escribe a mano en el HTML: todo
+sale de esas tablas o de lo que la persona escriba en el formulario.
 
 ## 3. Cómo quiero que trabajes aquí
 
@@ -46,8 +54,10 @@ Muy Bien
 
 - El proyecto vive en este repositorio de GitHub.
 - Se abre pidiéndole a Claude una sesión sobre este repo; no hace falta descargarlo.
-- La página publicada está en la liga que da Netlify.
-- La base de datos está en supabase.com, en el proyecto de esta cuenta.
+- La página publicada está en la liga que da Netlify: https://mi-pagina-mario-s7.netlify.app
+- La base de datos está en supabase.com, en el proyecto **`curso-ejemplo02Sept`**
+  de esta cuenta. *(Esta cuenta tiene otro proyecto, `curso-claude.`, que no es
+  el de esta página — no lo confundas con este.)*
 
 > **Si la página deja de mostrar datos después de una semana sin usarla**, casi
 > siempre es que el proyecto gratuito de Supabase se pausó. Se despierta con el
