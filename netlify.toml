@@ -1,0 +1,10 @@
+# Cómo publica Netlify esta página.
+#
+# Es un sitio de un solo archivo (index.html), sin nada que compilar.
+# Por eso no hay comando de construcción y se publica la carpeta tal cual.
+
+[build]
+  # No hay que construir nada: los archivos ya están listos.
+  command = ""
+  # Se publica la raíz del repositorio, donde vive index.html.
+  publish = "."
