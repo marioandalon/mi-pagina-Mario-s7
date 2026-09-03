@@ -2,47 +2,117 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<!-- Esta línea es la que hace que se vea bien en celular. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Todavía no hay nada aquí</title>
+<title>Buzón de sugerencias</title>
 <style>
-  :root { color-scheme: light dark; }
-  body {
-    margin: 0; min-height: 100vh;
-    display: grid; place-items: center;
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    background: #f4f6f8; color: #1a2027;
-    padding: 24px;
+  :root {
+    color-scheme: light dark;
+    --fondo: #f4f6f8;
+    --texto: #1a2027;
+    --tenue: #5b6875;
+    --tarjeta: #fff;
+    --borde: #dde3ea;
+    --acento: #2f6f4f;
   }
   @media (prefers-color-scheme: dark) {
-    body { background: #121820; color: #e8eef5; }
-    .caja { background: #1b232e !important; border-color: #2b3644 !important; }
-    code { background: #253040 !important; }
+    :root {
+      --fondo: #121820;
+      --texto: #e8eef5;
+      --tenue: #9aa8b6;
+      --tarjeta: #1b232e;
+      --borde: #2b3644;
+      --acento: #7fc5a0;
+    }
   }
-  .caja {
-    background: #fff; border: 1px solid #dde3ea; border-radius: 14px;
-    padding: 34px; max-width: 480px; text-align: center;
-    box-shadow: 0 10px 30px -18px rgba(0,0,0,.3);
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.55;
+    /* Aire a los lados: en celular pega menos al borde. */
+    padding: 32px 20px 56px;
   }
-  h1 { font-size: 22px; margin: 0 0 10px; }
-  p { margin: 0 0 14px; line-height: 1.55; }
-  p:last-child { margin-bottom: 0; }
-  code {
-    background: #eef2f6; padding: 2px 6px; border-radius: 4px;
-    font-family: ui-monospace, "Consolas", monospace; font-size: .9em;
+
+  /* La columna se ensancha sola hasta cierto punto y ahí se queda. */
+  .columna {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 auto;
   }
-  .chica { font-size: 14px; opacity: .75; }
+
+  header { margin-bottom: 28px; }
+
+  h1 {
+    /* El tamaño crece con la pantalla: chico en celular, grande en monitor. */
+    font-size: clamp(26px, 6vw, 38px);
+    line-height: 1.2;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .para-que {
+    margin: 0;
+    font-size: clamp(16px, 4vw, 18px);
+    color: var(--tenue);
+    /* Que no se estire tanto que canse leerla. */
+    max-width: 46ch;
+  }
+
+  /* El hueco del formulario. Se ve a propósito como algo pendiente. */
+  .lugar-del-formulario {
+    background: var(--tarjeta);
+    border: 2px dashed var(--borde);
+    border-radius: 14px;
+    padding: clamp(24px, 7vw, 40px) clamp(18px, 5vw, 32px);
+    text-align: center;
+  }
+
+  .etiqueta {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--acento);
+    margin-bottom: 12px;
+  }
+
+  .lugar-del-formulario h2 {
+    font-size: clamp(18px, 4.5vw, 21px);
+    margin: 0 0 8px;
+  }
+
+  .lugar-del-formulario p {
+    margin: 0;
+    color: var(--tenue);
+    font-size: 15px;
+    max-width: 40ch;
+    margin-inline: auto;
+  }
 </style>
 </head>
 <body>
-  <div class="caja">
-    <h1>Todavía no hay nada aquí</h1>
-    <p>Y eso es exactamente lo que tiene que decir hoy.</p>
-    <p>Si estás leyendo esto en tu propia liga, quiere decir que
-       <strong>tu repositorio, tu publicación y tu página ya funcionan</strong>.
-       Es todo lo que necesitabas antes de la sesión.</p>
-    <p class="chica">El martes le vas a pedir a Claude que reemplace esta página
-       por la tuya. Este archivo se llama <code>index.html</code> y es el único
-       que hay que cambiar.</p>
+  <div class="columna">
+
+    <header>
+      <h1>Buzón de sugerencias</h1>
+      <p class="para-que">Un espacio para dejar una idea o proponer una mejora
+        para el área.</p>
+    </header>
+
+    <!-- Aquí va el formulario en el siguiente paso. Por ahora solo el hueco. -->
+    <section class="lugar-del-formulario" aria-labelledby="titulo-formulario">
+      <span class="etiqueta">Próximo paso</span>
+      <h2 id="titulo-formulario">Aquí va a ir el formulario</h2>
+      <p>Todavía no está listo. Cuando lo esté, en este lugar se va a poder
+         escribir y enviar una sugerencia.</p>
+    </section>
+
   </div>
 </body>
 </html>
