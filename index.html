@@ -14,6 +14,8 @@
     --tarjeta: #fff;
     --borde: #dde3ea;
     --acento: #2f6f4f;
+    --acento-texto: #fff;
+    --error: #b3261e;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -23,6 +25,8 @@
       --tarjeta: #1b232e;
       --borde: #2b3644;
       --acento: #7fc5a0;
+      --acento-texto: #10261c;
+      --error: #f2b8b5;
     }
   }
 
@@ -34,18 +38,16 @@
     color: var(--texto);
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
     line-height: 1.55;
-    /* Aire a los lados: en celular pega menos al borde. */
     padding: 32px 20px 56px;
   }
 
-  /* La columna se ensancha sola hasta cierto punto y ahí se queda. */
   .columna {
     width: 100%;
     max-width: 620px;
     margin: 0 auto;
   }
 
-  header { margin-bottom: 28px; }
+  header { margin-bottom: 24px; }
 
   /* El nombre del área, arriba del título. Discreto: manda el título. */
   .area {
@@ -56,7 +58,6 @@
   }
 
   h1 {
-    /* El tamaño crece con la pantalla: chico en celular, grande en monitor. */
     font-size: clamp(26px, 6vw, 38px);
     line-height: 1.2;
     margin: 0 0 10px;
@@ -67,41 +68,182 @@
     margin: 0;
     font-size: clamp(16px, 4vw, 18px);
     color: var(--tenue);
-    /* Que no se estire tanto que canse leerla. */
     max-width: 46ch;
   }
 
-  /* El hueco del formulario. Se ve a propósito como algo pendiente. */
-  .lugar-del-formulario {
-    background: var(--tarjeta);
-    border: 2px dashed var(--borde);
-    border-radius: 14px;
-    padding: clamp(24px, 7vw, 40px) clamp(18px, 5vw, 32px);
-    text-align: center;
+  /* ---- Las dos pestañas ---- */
+
+  .pestanas {
+    display: flex;
+    gap: 6px;
+    border-bottom: 1px solid var(--borde);
+    margin-bottom: 22px;
+    /* Si no cupieran, se deslizan de lado en vez de romper la página. */
+    overflow-x: auto;
   }
 
-  .etiqueta {
-    display: inline-block;
-    font-size: 12px;
+  .pestanas button {
+    flex: 1 1 auto;
+    min-height: 46px;          /* cómodo para el dedo */
+    padding: 10px 14px;
+    border: 0;
+    background: none;
+    color: var(--tenue);
+    font: inherit;
     font-weight: 600;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--acento);
+    font-size: clamp(14px, 3.8vw, 16px);
+    white-space: nowrap;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+  }
+
+  .pestanas button[aria-selected="true"] {
+    color: var(--texto);
+    border-bottom-color: var(--acento);
+  }
+
+  .pestanas button:focus-visible,
+  .voto:focus-visible,
+  .enviar:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 2px;
+  }
+
+  .intro {
+    margin: 0 0 18px;
+    color: var(--tenue);
+    font-size: 15px;
+  }
+
+  /* ---- La lista de propuestas ---- */
+
+  .lista { list-style: none; margin: 0; padding: 0; }
+
+  .propuesta {
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 18px;
     margin-bottom: 12px;
   }
 
-  .lugar-del-formulario h2 {
-    font-size: clamp(18px, 4.5vw, 21px);
-    margin: 0 0 8px;
+  .propuesta h3 {
+    margin: 0 0 2px;
+    font-size: clamp(17px, 4.4vw, 19px);
+    line-height: 1.3;
+    /* Un nombre larguísimo sin espacios no debe empujar la página. */
+    overflow-wrap: anywhere;
   }
 
-  .lugar-del-formulario p {
+  .quien {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: var(--tenue);
+    overflow-wrap: anywhere;
+  }
+
+  .porque {
+    margin: 0 0 16px;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;     /* respeta los saltos de línea que escribieron */
+  }
+
+  .fila-voto {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .voto {
+    min-height: 44px;
+    padding: 9px 18px;
+    border: 1px solid var(--acento);
+    border-radius: 999px;
+    background: none;
+    color: var(--acento);
+    font: inherit;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .voto[aria-pressed="true"] {
+    background: var(--acento);
+    color: var(--acento-texto);
+  }
+
+  .voto[disabled] { opacity: .55; cursor: default; }
+
+  .cuenta { font-size: 14px; color: var(--tenue); }
+
+  /* ---- El formulario ---- */
+
+  .campo { margin-bottom: 16px; }
+
+  .campo label {
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+
+  .campo .pista {
+    display: block;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--tenue);
+    margin-top: 2px;
+  }
+
+  input, textarea {
+    width: 100%;
+    /* 16px o más: abajo de eso, el iPhone hace zoom solo al escribir. */
+    font: inherit;
+    font-size: 16px;
+    color: var(--texto);
+    background: var(--tarjeta);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  textarea { min-height: 110px; resize: vertical; }
+
+  .enviar {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 20px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--acento);
+    color: var(--acento-texto);
+    font: inherit;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .enviar[disabled] { opacity: .6; cursor: default; }
+
+  /* ---- Avisos ---- */
+
+  .aviso {
     margin: 0;
+    padding: 16px 0;
     color: var(--tenue);
     font-size: 15px;
-    max-width: 40ch;
-    margin-inline: auto;
   }
+
+  .aviso.malo { color: var(--error); font-weight: 500; }
+
+  .aviso.bueno { color: var(--acento); font-weight: 600; }
+
+  [hidden] { display: none !important; }
 </style>
 </head>
 <body>
@@ -114,14 +256,326 @@
         para el área.</p>
     </header>
 
-    <!-- Aquí va el formulario en el siguiente paso. Por ahora solo el hueco. -->
-    <section class="lugar-del-formulario" aria-labelledby="titulo-formulario">
-      <span class="etiqueta">Próximo paso</span>
-      <h2 id="titulo-formulario">Aquí va a ir el formulario</h2>
-      <p>Todavía no está listo. Cuando lo esté, en este lugar se va a poder
-         escribir y enviar una sugerencia.</p>
+    <nav class="pestanas" role="tablist" aria-label="Secciones">
+      <button type="button" role="tab" id="tab-lista"
+              aria-controls="panel-lista" aria-selected="true">Propuestas</button>
+      <button type="button" role="tab" id="tab-nueva"
+              aria-controls="panel-nueva" aria-selected="false">Proponer un lugar</button>
+    </nav>
+
+    <!-- Pestaña 1: la lista de lo que ya propusieron. -->
+    <section id="panel-lista" role="tabpanel" aria-labelledby="tab-lista">
+      <p class="intro">Lugares propuestos para la cena de fin de año. Vota los
+        que te gusten: puedes votar por varios, y quitar tu voto si cambias de
+        opinión.</p>
+      <p class="aviso" id="estado-lista">Cargando propuestas…</p>
+      <ul class="lista" id="lista"></ul>
+    </section>
+
+    <!-- Pestaña 2: el formulario para proponer. -->
+    <section id="panel-nueva" role="tabpanel" aria-labelledby="tab-nueva" hidden>
+      <p class="intro">¿Se te ocurre un buen lugar para la cena de fin de año?
+        Propónlo aquí y el resto podrá votarlo.</p>
+
+      <form id="forma" novalidate>
+        <div class="campo">
+          <label for="lugar">Nombre del lugar
+            <span class="pista">El restaurante, salón o sitio que propones.</span>
+          </label>
+          <input id="lugar" name="lugar" type="text" maxlength="120"
+                 autocomplete="off" required>
+        </div>
+
+        <div class="campo">
+          <label for="nombre">Tu nombre
+            <span class="pista">Para que se sepa quién lo recomendó.</span>
+          </label>
+          <input id="nombre" name="nombre" type="text" maxlength="80"
+                 autocomplete="name" required>
+        </div>
+
+        <div class="campo">
+          <label for="mensaje">Por qué lo propones
+            <span class="pista">Dos o tres líneas bastan.</span>
+          </label>
+          <textarea id="mensaje" name="mensaje" maxlength="600" required></textarea>
+        </div>
+
+        <button type="submit" class="enviar" id="enviar">Enviar propuesta</button>
+        <p class="aviso" id="estado-forma" hidden></p>
+      </form>
     </section>
 
   </div>
+
+<script>
+(function () {
+  'use strict';
+
+  // La liga y la llave de Supabase. Esta llave es la 'publishable':
+  // está hecha para andar a la vista, no abre nada que no deba abrirse.
+  var URL_BASE = 'https://fmeozwktnffykaxdlluw.supabase.co/rest/v1';
+  var LLAVE = 'sb_publishable_zulFJj_9Xzd1Q-rYox8Nrw_uN4SN2-_';
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ---- Quién está votando -------------------------------------------------
+  // Un id al azar guardado en este navegador. Sirve para no votar dos veces
+  // por lo mismo y para poder quitar tu voto. No dice quién eres.
+
+  function idDeVotante() {
+    var CLAVE = 'votante';
+    try {
+      var guardado = localStorage.getItem(CLAVE);
+      if (guardado) return guardado;
+      var nuevo = (crypto && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : String(Date.now()) + '-' + Math.random().toString(16).slice(2);
+      localStorage.setItem(CLAVE, nuevo);
+      return nuevo;
+    } catch (e) {
+      // Navegador en privado o con el almacenamiento bloqueado: el voto
+      // funciona igual, solo que no se recuerda al recargar.
+      return 'temporal-' + Math.random().toString(16).slice(2);
+    }
+  }
+
+  var YO = idDeVotante();
+
+  // ---- Hablar con Supabase ------------------------------------------------
+
+  function pedir(camino, opciones) {
+    opciones = opciones || {};
+    var cabeceras = {
+      'apikey': LLAVE,
+      'Authorization': 'Bearer ' + LLAVE
+    };
+    if (opciones.body) {
+      cabeceras['Content-Type'] = 'application/json';
+      cabeceras['Prefer'] = 'return=minimal';
+    }
+    return fetch(URL_BASE + camino, {
+      method: opciones.method || 'GET',
+      headers: cabeceras,
+      body: opciones.body ? JSON.stringify(opciones.body) : undefined
+    }).then(function (r) {
+      if (!r.ok) {
+        return r.text().then(function (t) {
+          throw new Error('Supabase respondió ' + r.status + ': ' + t);
+        });
+      }
+      // Al escribir pedimos 'return=minimal': Supabase contesta 201 o 204
+      // con el cuerpo vacío. Leerlo como JSON tronaría, así que se revisa.
+      return r.text().then(function (t) {
+        return t ? JSON.parse(t) : null;
+      });
+    });
+  }
+
+  // ---- Estado -------------------------------------------------------------
+
+  var propuestas = [];   // filas de 'registros' que traen lugar
+  var votos = [];        // filas de 'votos'
+
+  function votosDe(id) {
+    var n = 0;
+    for (var i = 0; i < votos.length; i++) {
+      if (votos[i].registro_id === id) n++;
+    }
+    return n;
+  }
+
+  function yoVote(id) {
+    for (var i = 0; i < votos.length; i++) {
+      if (votos[i].registro_id === id && votos[i].votante === YO) return true;
+    }
+    return false;
+  }
+
+  // ---- Dibujar la lista ---------------------------------------------------
+  // Todo el texto de la gente se pone con textContent, nunca con innerHTML:
+  // así lo que alguien escriba no puede convertirse en código.
+
+  function dibujarLista() {
+    var lista = $('lista');
+    var estado = $('estado-lista');
+    lista.textContent = '';
+
+    if (propuestas.length === 0) {
+      estado.hidden = false;
+      estado.className = 'aviso';
+      estado.textContent = 'Todavía no hay propuestas. La primera puede ser la tuya: '
+        + 've a "Proponer un lugar".';
+      return;
+    }
+    estado.hidden = true;
+
+    // Primero las más votadas; si empatan, la más reciente arriba.
+    var ordenadas = propuestas.slice().sort(function (a, b) {
+      var d = votosDe(b.id) - votosDe(a.id);
+      if (d !== 0) return d;
+      return String(b.creado_en).localeCompare(String(a.creado_en));
+    });
+
+    ordenadas.forEach(function (p) {
+      var li = document.createElement('li');
+      li.className = 'propuesta';
+
+      var titulo = document.createElement('h3');
+      titulo.textContent = p.lugar;
+      li.appendChild(titulo);
+
+      var quien = document.createElement('p');
+      quien.className = 'quien';
+      quien.textContent = 'Lo recomendó ' + (p.nombre || 'alguien sin nombre');
+      li.appendChild(quien);
+
+      if (p.mensaje) {
+        var porque = document.createElement('p');
+        porque.className = 'porque';
+        porque.textContent = p.mensaje;
+        li.appendChild(porque);
+      }
+
+      var fila = document.createElement('div');
+      fila.className = 'fila-voto';
+
+      var boton = document.createElement('button');
+      boton.type = 'button';
+      boton.className = 'voto';
+      var mio = yoVote(p.id);
+      boton.setAttribute('aria-pressed', mio ? 'true' : 'false');
+      boton.textContent = mio ? 'Votado' : 'Votar';
+      boton.addEventListener('click', function () { alternarVoto(p.id, boton); });
+      fila.appendChild(boton);
+
+      var cuenta = document.createElement('span');
+      cuenta.className = 'cuenta';
+      var n = votosDe(p.id);
+      cuenta.textContent = n === 0 ? 'Sin votos aún'
+                         : n === 1 ? '1 voto'
+                         : n + ' votos';
+      fila.appendChild(cuenta);
+
+      li.appendChild(fila);
+      lista.appendChild(li);
+    });
+  }
+
+  // ---- Votar y quitar el voto --------------------------------------------
+
+  function alternarVoto(id, boton) {
+    boton.disabled = true;
+    var yaEstaba = yoVote(id);
+
+    var accion = yaEstaba
+      ? pedir('/votos?registro_id=eq.' + id + '&votante=eq.' + encodeURIComponent(YO),
+              { method: 'DELETE' })
+      : pedir('/votos', { method: 'POST', body: { registro_id: id, votante: YO } });
+
+    accion.then(function () {
+      return cargarVotos();
+    }).then(function () {
+      dibujarLista();
+    }).catch(function (e) {
+      console.error(e);
+      boton.disabled = false;
+      var estado = $('estado-lista');
+      estado.hidden = false;
+      estado.className = 'aviso malo';
+      estado.textContent = 'No se pudo registrar el voto. Vuelve a intentarlo.';
+    });
+  }
+
+  // ---- Cargar ------------------------------------------------------------
+
+  function cargarPropuestas() {
+    // Solo las filas que traen lugar: son las propuestas para la cena.
+    return pedir('/registros?select=id,lugar,nombre,mensaje,creado_en'
+                 + '&lugar=not.is.null&order=creado_en.desc')
+      .then(function (filas) { propuestas = filas || []; });
+  }
+
+  function cargarVotos() {
+    return pedir('/votos?select=registro_id,votante')
+      .then(function (filas) { votos = filas || []; });
+  }
+
+  function cargarTodo() {
+    var estado = $('estado-lista');
+    estado.hidden = false;
+    estado.className = 'aviso';
+    estado.textContent = 'Cargando propuestas…';
+
+    return Promise.all([cargarPropuestas(), cargarVotos()])
+      .then(dibujarLista)
+      .catch(function (e) {
+        console.error(e);
+        $('lista').textContent = '';
+        estado.hidden = false;
+        estado.className = 'aviso malo';
+        estado.textContent = 'No se pudo conectar con la base de datos. '
+          + 'Si la página llevaba días sin usarse, puede que el proyecto de '
+          + 'Supabase esté pausado: se despierta con el botón "Resume project".';
+      });
+  }
+
+  // ---- Las pestañas ------------------------------------------------------
+
+  function verPestana(cual) {
+    var esLista = cual === 'lista';
+    $('tab-lista').setAttribute('aria-selected', esLista ? 'true' : 'false');
+    $('tab-nueva').setAttribute('aria-selected', esLista ? 'false' : 'true');
+    $('panel-lista').hidden = !esLista;
+    $('panel-nueva').hidden = esLista;
+  }
+
+  $('tab-lista').addEventListener('click', function () { verPestana('lista'); });
+  $('tab-nueva').addEventListener('click', function () { verPestana('nueva'); });
+
+  // ---- Enviar una propuesta ----------------------------------------------
+
+  $('forma').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+
+    var lugar = $('lugar').value.trim();
+    var nombre = $('nombre').value.trim();
+    var mensaje = $('mensaje').value.trim();
+    var estado = $('estado-forma');
+
+    estado.hidden = false;
+
+    if (!lugar || !nombre || !mensaje) {
+      estado.className = 'aviso malo';
+      estado.textContent = 'Faltan datos: el lugar, tu nombre y por qué lo propones.';
+      return;
+    }
+
+    $('enviar').disabled = true;
+    estado.className = 'aviso';
+    estado.textContent = 'Enviando…';
+
+    pedir('/registros', {
+      method: 'POST',
+      body: { lugar: lugar, nombre: nombre, mensaje: mensaje }
+    }).then(function () {
+      $('forma').reset();
+      estado.className = 'aviso bueno';
+      estado.textContent = '¡Listo! Tu propuesta ya está en la lista.';
+      return cargarTodo();
+    }).then(function () {
+      verPestana('lista');
+    }).catch(function (e) {
+      console.error(e);
+      estado.className = 'aviso malo';
+      estado.textContent = 'No se pudo enviar. Revisa tu conexión y vuelve a intentarlo.';
+    }).then(function () {
+      $('enviar').disabled = false;
+    });
+  });
+
+  cargarTodo();
+})();
+</script>
 </body>
 </html>
