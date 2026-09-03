@@ -8,8 +8,7 @@ primer minuto.
 
 ## 1. Qué es este proyecto y quién lo usa
 
-*(Lo escribes tú en la sesión: dos líneas. Qué es la página, para quién es y cada
-cuándo se usa.)*
+RO
 
 ## 2. De dónde sale cada cifra
 
@@ -40,8 +39,7 @@ sale de esa tabla o de lo que la persona escriba en el formulario.
 
 ## 5. Mi regla de verificación
 
-*(La escribes tú en la sesión: con qué frase cierras lo que entregas y qué tiene
-que ser cierto para que puedas publicarlo.)*
+Muy Bien
 
 ## 6. Cómo vuelvo a abrir esto
 
@@ -53,3 +51,17 @@ que ser cierto para que puedas publicarlo.)*
 > **Si la página deja de mostrar datos después de una semana sin usarla**, casi
 > siempre es que el proyecto gratuito de Supabase se pausó. Se despierta con el
 > botón **Resume project**.
+
+## 7. Sistema de diseño
+
+Colores de esta página: **Negro** y **Azul**.
+
+- Negro (`#111827`) — texto y fondos oscuros. Es el color base: el que carga el peso
+  del contenido (títulos, texto, tarjetas en modo oscuro).
+- Azul (`#2563eb`) — acento. Se usa para lo interactivo: botones, enlaces, bordes o
+  estados activos, y para señalar qué se puede tocar.
+- No se mezclan otros colores de marca. Los grises y blancos que hacen falta para
+  fondos claros, bordes o texto tenue se sacan de esta misma pareja (variaciones de
+  negro), nunca de un tercer color.
+- Mismo criterio en modo claro y en modo oscuro: el negro se aclara u oscurece según
+  el fondo, pero el azul de acento se mantiene reconocible en los dos.
