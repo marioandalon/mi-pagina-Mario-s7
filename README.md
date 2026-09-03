@@ -18,12 +18,14 @@ todo se le pidió a Claude en español.
 
 1. Se abre una sesión de Claude sobre este repositorio.
 2. Se le pide el cambio **en una rama**, no en `main`.
-3. Netlify hace una **vista previa** con su propia liga: ahí se revisa.
-4. Cuando está bien, se fusiona la rama. Eso —y solo eso— publica.
+3. En cuanto el cambio está listo, Claude abre el Pull Request, lo fusiona a
+   `main` y despliega: a Netlify (que publica solo al fusionar) y, si hace
+   falta, a Supabase. No espera aprobación para ninguno de los dos pasos.
 
 > **Fusionar cuesta.** El plan gratuito de Netlify alcanza para unas veinte
-> publicaciones al mes. Las vistas previas son gratis e ilimitadas: se itera ahí
-> y se fusiona poco.
+> publicaciones al mes, y ahora cada cambio publica en cuanto está listo, sin
+> esperar a juntar varios. Si vas a pedir varios ajustes seguidos, dilos en
+> un solo mensaje: así es una publicación en vez de varias.
 
 ## Qué NO va en este repositorio
 
