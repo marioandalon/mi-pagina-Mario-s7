@@ -15,13 +15,14 @@ RO
 Los datos de esta página viven en Supabase, en el proyecto `curso-ejemplo02Sept`,
 en dos tablas:
 
-- `registros` — cada fila es una propuesta de lugar para la cena. Columnas:
-  `id`, `creado_en`, `nombre` (quién la recomienda), `mensaje` (la
-  justificación), `lugar` (el sitio propuesto).
-- `votos` — cada fila es un voto a una propuesta. Columnas: `id`,
-  `registro_id` (a qué propuesta), `votante` (un id al azar que guarda el
-  navegador de quien vota, no un nombre), `creado_en`. Una persona no puede
-  votar dos veces la misma propuesta (`unique (registro_id, votante)`).
+- `registros` — columnas: `id`, `creado_en`, `nombre` (quién la recomienda),
+  `mensaje` (la justificación), `lugar` (el sitio propuesto). Solo cuenta
+  como propuesta la fila que trae `lugar`; la página filtra por eso al
+  leerlas (`lugar=not.is.null`).
+- `votos` — columnas: `id`, `registro_id` (a qué propuesta), `votante` (un
+  id al azar que guarda el navegador de quien vota, no un nombre),
+  `creado_en`. Una persona no puede votar dos veces la misma propuesta
+  (`unique (registro_id, votante)`).
 
 Ninguna cifra ni ningún texto que se muestre se escribe a mano en el HTML: todo
 sale de esas tablas o de lo que la persona escriba en el formulario.
